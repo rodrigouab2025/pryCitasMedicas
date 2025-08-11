@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('rol', ['paciente', 'medico', 'administrador'])->default('paciente');
             $table->string('telefono',8)->nullable();
+            $table->char('estado', 1)->default('S');
             $table->rememberToken();
             $table->timestamps();
         });
