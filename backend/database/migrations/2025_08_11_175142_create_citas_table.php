@@ -18,10 +18,10 @@ return new class extends Migration
             $table->time('tiempo_final');
             $table->string('razon',100);
             $table->char('estado', 1)->default('S');
-            $table->unsignedBigInteger('horarios_id');
+            $table->unsignedBigInteger('horario_id');
             $table->unsignedBigInteger('paciente_id');
             $table->timestamps();
-            $table->foreign('horarios_id')->references('id')->on('horarios')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('horario_id')->references('id')->on('horarios')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('paciente_id')->references('id')->on('perfiles_pacientes')->onUpdate('cascade')->onDelete('cascade');
         });
     }
