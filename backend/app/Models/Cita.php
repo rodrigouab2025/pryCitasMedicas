@@ -10,8 +10,8 @@ class Cita extends Model
 
     protected $fillable = [
         'fecha',
-        'fecha_inicio',
-        'fecha_final',
+        'tiempo_inicio',
+        'tiempo_final',
         'razon',
         'estado',
         'horario_id',

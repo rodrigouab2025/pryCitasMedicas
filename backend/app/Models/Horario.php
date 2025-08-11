@@ -10,8 +10,8 @@ class Horario extends Model
 
     protected $fillable = [
         'dia_semana',
-        'fecha_inicio',
-        'fecha_final',
+        'tiempo_inicio',
+        'tiempo_final',
         'duracion_cita',
         'estado',
         'doctor_id',
