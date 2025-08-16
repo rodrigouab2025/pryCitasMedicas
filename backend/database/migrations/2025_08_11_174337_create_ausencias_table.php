@@ -19,9 +19,9 @@ return new class extends Migration
             $table->time('tiempo_final');
             $table->string('razon',100);
             $table->char('estado', 1)->default('S');
-            $table->unsignedBigInteger('doctor_id');
+            $table->unsignedBigInteger('medico_id');
             $table->timestamps();
-            $table->foreign('doctor_id')->references('id')->on('perfiles_doctores')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('medico_id')->references('id')->on('perfiles_medicos')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

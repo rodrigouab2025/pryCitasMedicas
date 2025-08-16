@@ -14,6 +14,6 @@ class Horario extends Model
         'tiempo_final',
         'duracion_cita',
         'estado',
-        'doctor_id',
+        'medico_id',
     ];
 }

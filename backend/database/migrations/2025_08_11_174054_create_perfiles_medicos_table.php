@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('perfiles_doctores', function (Blueprint $table) {
+        Schema::create('perfiles_medicos', function (Blueprint $table) {
             $table->id();
             $table->string('reg_profesional',20);
             $table->longText('biografia')->nullable();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('perfiles_doctores');
+        Schema::dropIfExists('perfiles_medicos');
     }
 };

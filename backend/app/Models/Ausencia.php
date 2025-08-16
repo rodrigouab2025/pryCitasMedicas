@@ -15,6 +15,6 @@ class Ausencia extends Model
         'tiempo_final',
         'razon',
         'estado',
-        'doctor_id',
+        'medico_id',
     ];
 }

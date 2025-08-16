@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         ]);
         $this->call(EspecialidadSeeder::class);
         $this->call(PerfilPacienteSeeder::class);
-        $this->call(PerfilDoctorSeeder::class);
+        $this->call(PerfilMedicoSeeder::class);
         $this->call(AusenciaSeeder::class);
         $this->call(HorarioSeeder::class);
         $this->call(CitaSeeder::class);
