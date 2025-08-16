@@ -10,7 +10,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::post('/registrarpaciente', [AuthController::class, 'registrarpaciente']);
+Route::post('/registrarusuario', [AuthController::class, 'registrarusuario']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::apiResource('especialidades',EspecialidadController::class);
