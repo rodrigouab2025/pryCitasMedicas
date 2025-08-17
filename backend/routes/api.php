@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AusenciaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EspecialidadController;
 use Illuminate\Http\Request;
@@ -14,3 +15,4 @@ Route::post('/registrarusuario', [AuthController::class, 'registrarusuario']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::apiResource('especialidades',EspecialidadController::class);
+Route::apiResource('ausencias',AusenciaController::class);
