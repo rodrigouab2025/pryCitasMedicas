@@ -18,4 +18,8 @@ class PerfilPaciente extends Model
         'historial_medico',
         'user_id',
     ];
+     public function citas()
+    {
+        return $this->hasMany(Cita::class, 'paciente_id');
+    }
 }

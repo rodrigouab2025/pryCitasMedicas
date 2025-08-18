@@ -77,17 +77,16 @@ class CitaController extends Controller
      */
     public function show(string $id)
     {
-        $cita = Cita::find($id);
-        if(!$cita){
+        $cita = Cita::with('paciente')->find($id);
+
+        if (!$cita) {
             return response()->json([
                 'mensaje' => 'Cita no encontrada.'
-            ], 404
-        );
-        }else{
-
+            ], 404);
         }
-        return response()->json($cita,200);
-    }
+
+        return response()->json($cita, 200);
+        }
 
     /**
      * Update the specified resource in storage.

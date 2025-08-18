@@ -17,4 +17,8 @@ class Cita extends Model
         'horario_id',
         'paciente_id',
     ];
+     public function paciente()
+    {
+        return $this->belongsTo(PerfilPaciente::class, 'paciente_id');
+    }
 }
