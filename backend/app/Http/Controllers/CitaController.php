@@ -77,7 +77,7 @@ class CitaController extends Controller
      */
     public function show(string $id)
     {
-        $cita = Cita::with('paciente')->find($id);
+        $cita = Cita::with('paciente.user')->find($id);
 
         if (!$cita) {
             return response()->json([
@@ -86,7 +86,7 @@ class CitaController extends Controller
         }
 
         return response()->json($cita, 200);
-        }
+    }
 
     /**
      * Update the specified resource in storage.
