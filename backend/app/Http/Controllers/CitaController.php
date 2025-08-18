@@ -80,7 +80,7 @@ class CitaController extends Controller
         $cita = Cita::find($id);
         if(!$cita){
             return response()->json([
-                'mensaje' => 'Cita no encontrado.'
+                'mensaje' => 'Cita no encontrada.'
             ], 404
         );
         }else{
@@ -169,5 +169,17 @@ class CitaController extends Controller
         return response()->json([
             'message' => 'Cita eliminada exitosamente.'
         ], 201);
+    }
+    public function buscarCitaPaciente(string $id){
+        $cita = Cita::where('paciente_id',$id)->where('estado','S')->get();
+        if(!$cita){
+            return response()->json([
+                'mensaje' => 'Cita no encontrada.'
+            ], 404
+        );
+        }else{
+
+        }
+        return response()->json($cita,200);
     }
 }

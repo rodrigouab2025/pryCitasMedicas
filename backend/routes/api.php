@@ -20,3 +20,4 @@ Route::apiResource('especialidades',EspecialidadController::class);
 Route::apiResource('ausencias',AusenciaController::class);
 Route::apiResource('horarios',HorarioController::class);
 Route::apiResource('citas',CitaController::class);
+Route::get('/citas/paciente/{id}', [CitaController::class, 'buscarCitaPaciente']);
