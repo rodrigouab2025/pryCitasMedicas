@@ -57,6 +57,25 @@ class CitaController extends Controller
             ], 422);
         }
 
+         $existeCita = Cita::where('fecha', $request->fecha)
+            ->where('horario_id', $request->horario_id)
+            ->where('estado', 'S') 
+            ->where(function ($query) use ($request) {
+                $query->whereBetween('tiempo_inicio', [$request->tiempo_inicio, $request->tiempo_final])
+                    ->orWhereBetween('tiempo_final', [$request->tiempo_inicio, $request->tiempo_final])
+                    ->orWhere(function ($q) use ($request) {
+                        $q->where('tiempo_inicio', '<=', $request->tiempo_inicio)
+                            ->where('tiempo_final', '>=', $request->tiempo_final);
+                    });
+            })
+            ->exists();
+
+        if ($existeCita) {
+            return response()->json([
+                'message' => 'El horario seleccionado no está disponible.',
+            ], 409);
+        }
+
         $cita = Cita::create([
             'fecha'         => $request->fecha,
             'tiempo_inicio' => $request->tiempo_inicio,
@@ -125,6 +144,24 @@ class CitaController extends Controller
                 'message' => 'Error en la validación.',
                 'errors'  => $validator->errors()
             ], 422);
+        }
+        $existeCita = Cita::where('fecha', $request->fecha)
+            ->where('horario_id', $request->horario_id)
+            ->where('estado', 'S') 
+            ->where(function ($query) use ($request) {
+                $query->whereBetween('tiempo_inicio', [$request->tiempo_inicio, $request->tiempo_final])
+                    ->orWhereBetween('tiempo_final', [$request->tiempo_inicio, $request->tiempo_final])
+                    ->orWhere(function ($q) use ($request) {
+                        $q->where('tiempo_inicio', '<=', $request->tiempo_inicio)
+                            ->where('tiempo_final', '>=', $request->tiempo_final);
+                    });
+            })
+            ->exists();
+
+        if ($existeCita) {
+            return response()->json([
+                'message' => 'El horario seleccionado no está disponible.',
+            ], 409);
         }
 
         $cita = Cita::find($id);

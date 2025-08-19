@@ -15,9 +15,9 @@ Route::get('/user', function (Request $request) {
 Route::get('/horarios/disponibles', [HorarioController::class, 'disponibles']);
 Route::post('/registrarusuario', [AuthController::class, 'registrarusuario']);
 Route::post('/login', [AuthController::class, 'login']);
-
+Route::get('/citas/paciente/{id}', [CitaController::class, 'buscarCitaPaciente']);
 Route::apiResource('especialidades',EspecialidadController::class);
 Route::apiResource('ausencias',AusenciaController::class);
 Route::apiResource('horarios',HorarioController::class);
 Route::apiResource('citas',CitaController::class);
-Route::get('/citas/paciente/{id}', [CitaController::class, 'buscarCitaPaciente']);
+

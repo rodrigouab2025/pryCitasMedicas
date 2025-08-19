@@ -160,9 +160,6 @@ class HorarioController extends Controller
             'message' => 'Horario eliminado exitosamente.'
         ], 201);
     }
-    public function validarHorario(){
-        
-    }
     public function disponibles(Request $request)
     {
         $request->validate([
