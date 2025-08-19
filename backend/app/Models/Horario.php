@@ -20,4 +20,5 @@ class Horario extends Model
     {
         return $this->belongsTo(PerfilMedico::class, 'medico_id');
     }
+    
 }

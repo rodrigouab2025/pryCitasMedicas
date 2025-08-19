@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\EspecialidadController;
 use App\Http\Controllers\HorarioController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,4 @@ Route::apiResource('especialidades',EspecialidadController::class);
 Route::apiResource('ausencias',AusenciaController::class);
 Route::apiResource('horarios',HorarioController::class);
 Route::apiResource('citas',CitaController::class);
-
+Route::apiResource('usuarios',UserController::class);

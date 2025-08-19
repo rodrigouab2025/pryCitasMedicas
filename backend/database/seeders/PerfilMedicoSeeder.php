@@ -15,6 +15,7 @@ class PerfilMedicoSeeder extends Seeder
             'name' => 'MEDICO DE PRUEBA',
             'email' => 'medico@ejemplo.com',
             'password' => Hash::make('12345678'),
+            'rol' => 'medico',
         ]);
 
         PerfilMedico::create([

@@ -49,6 +49,11 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function perfilPaciente()
+    {
+        return $this->hasOne(PerfilPaciente::class, 'user_id');
+    }
+
     public function perfilMedico()
     {
         return $this->hasOne(PerfilMedico::class, 'user_id');
