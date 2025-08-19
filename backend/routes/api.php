@@ -20,6 +20,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/citas/paciente/{id}', [CitaController::class, 'buscarCitaPaciente']);
 Route::get('/reportes/boleta/{id}', [ReporteController::class, 'boletaReserva']); 
 Route::post('/reportes/citas', [ReporteController::class, 'reporteCitas']); 
+Route::get('citas/medico/{id}', [CitaController::class, 'buscarCitaUsuario']);
 Route::apiResource('especialidades',EspecialidadController::class);
 Route::apiResource('ausencias',AusenciaController::class);
 Route::apiResource('horarios',HorarioController::class);

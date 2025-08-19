@@ -218,5 +218,25 @@ class CitaController extends Controller
         }
         return response()->json($cita,200);
     }
-    
+    public function buscarCitaUsuario(string $id)
+    {
+        $citas = Cita::with(['horario.medico', 'paciente'])
+                    ->whereHas('horario.medico', function ($query) use ($id) {
+                        $query->where('user_id', $id);
+                    })
+                    ->where('estado', 'S')
+                    ->get();
+
+        if ($citas->isEmpty()) {
+            return response()->json([
+                'mensaje' => 'Cita no encontrada.'
+            ], 404);
+        }
+
+        return response()->json([
+            'mensaje' => 'Citas encontradas',
+            'data' => $citas
+        ], 200);
+    }
+
 }
