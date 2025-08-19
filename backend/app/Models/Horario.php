@@ -20,5 +20,8 @@ class Horario extends Model
     {
         return $this->belongsTo(PerfilMedico::class, 'medico_id');
     }
-    
+    public function citas()
+    {
+        return $this->hasMany(Cita::class, 'horario_id');
+    }
 }

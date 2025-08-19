@@ -21,4 +21,19 @@ class Cita extends Model
     {
         return $this->belongsTo(PerfilPaciente::class, 'paciente_id');
     }
+    public function horario()
+    {
+        return $this->belongsTo(Horario::class, 'horario_id');
+    }
+    public function medico()
+    {
+        return $this->hasOneThrough(
+            PerfilMedico::class,  
+            Horario::class,      
+            'id', 
+            'id', 
+            'horario_id', 
+            'medico_id'
+        );
+    }
 }
