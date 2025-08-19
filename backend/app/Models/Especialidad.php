@@ -14,4 +14,8 @@ class Especialidad extends Model
         'descripcion',
         'estado',
     ];
+    public function perfilesMedicos()
+    {
+        return $this->hasMany(PerfilMedico::class, 'especialidad_id');
+    }
 }

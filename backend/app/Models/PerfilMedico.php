@@ -17,4 +17,18 @@ class PerfilMedico extends Model
         'especialidad_id',
         'user_id',
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function especialidad()
+    {
+        return $this->belongsTo(Especialidad::class, 'especialidad_id');
+    }
+
+    public function horarios()
+    {
+        return $this->hasMany(Horario::class, 'medico_id');
+    }
 }

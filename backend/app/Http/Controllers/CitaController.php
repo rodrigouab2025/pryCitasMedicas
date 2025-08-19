@@ -181,4 +181,5 @@ class CitaController extends Controller
         }
         return response()->json($cita,200);
     }
+    
 }

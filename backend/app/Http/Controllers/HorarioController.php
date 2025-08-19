@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Horario;
+use App\Models\PerfilMedico;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -157,5 +159,29 @@ class HorarioController extends Controller
         return response()->json([
             'message' => 'Horario eliminado exitosamente.'
         ], 201);
+    }
+    public function validarHorario(){
+        
+    }
+    public function disponibles(Request $request)
+    {
+        $request->validate([
+            'fecha' => 'required|date',
+            'especialidad_id' => 'required|integer|exists:especialidades,id',
+        ]);
+        $fecha = Carbon::parse($request->fecha);
+        $diaSemana = $fecha->dayOfWeekIso;
+        $medicos = PerfilMedico::with([
+                'user',
+                'especialidad',
+                'horarios' => function($q) use ($diaSemana) {
+                    $q->where('dia_semana', $diaSemana)
+                      ->where('estado', 'S');
+                }
+            ])
+            ->where('especialidad_id', $request->especialidad_id)
+            ->get();
+
+        return response()->json($medicos, 200);
     }
 }

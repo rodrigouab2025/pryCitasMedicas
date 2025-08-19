@@ -16,4 +16,8 @@ class Horario extends Model
         'estado',
         'medico_id',
     ];
+    public function medico()
+    {
+        return $this->belongsTo(PerfilMedico::class, 'medico_id');
+    }
 }

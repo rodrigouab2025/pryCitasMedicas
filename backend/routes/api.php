@@ -12,7 +12,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-
+Route::get('/horarios/disponibles', [HorarioController::class, 'disponibles']);
 Route::post('/registrarusuario', [AuthController::class, 'registrarusuario']);
 Route::post('/login', [AuthController::class, 'login']);
 

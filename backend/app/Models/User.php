@@ -49,4 +49,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function perfilMedico()
+    {
+        return $this->hasOne(PerfilMedico::class, 'user_id');
+    }
 }
