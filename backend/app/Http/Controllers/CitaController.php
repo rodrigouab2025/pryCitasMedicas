@@ -222,11 +222,15 @@ class CitaController extends Controller
     }
     public function buscarCitaUsuario(string $id)
     {
+        $hoy = now()->toDateString();
         $citas = Cita::with(['horario.medico', 'paciente'])
                     ->whereHas('horario.medico', function ($query) use ($id) {
                         $query->where('user_id', $id);
                     })
+                    ->where('fecha', '>=', $hoy)
                     ->where('estado', 'S')
+                    ->orderBy('fecha', 'asc')
+                    ->orderBy('tiempo_inicio', 'asc')
                     ->get();
 
         if ($citas->isEmpty()) {
@@ -254,4 +258,31 @@ class CitaController extends Controller
             'data' => $perfil
         ]);
     }
+    public function buscarCitaActualUsuario(string $id)
+    {
+        $hoy = now()->toDateString();
+
+        $cita = Cita::with(['horario.medico', 'paciente'])
+            ->whereHas('paciente', function ($query) use ($id) {
+                $query->where('user_id', $id); 
+            })
+            ->where('estado', 'S')
+            ->where('fecha', '>=', $hoy)
+            ->orderBy('fecha', 'desc')
+            ->orderBy('tiempo_final', 'desc')
+            ->first();
+
+
+        if (!$cita) {
+            return response()->json([
+                'mensaje' => 'Cita no encontrada.'
+            ], 404);
+        }
+
+        return response()->json([
+            'mensaje' => 'Cita encontrada',
+            'data' => $cita
+        ], 200);
+    }
+
 }
