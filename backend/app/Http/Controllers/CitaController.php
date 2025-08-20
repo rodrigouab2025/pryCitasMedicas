@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Cita;
 use App\Models\Horario;
+use App\Models\PerfilPaciente;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -238,5 +240,18 @@ class CitaController extends Controller
             'data' => $citas
         ], 200);
     }
+    public function modificarHistorialPaciente(Request $request, string $id)
+    {
+        $perfil = PerfilPaciente::updateOrCreate(
+            ['user_id' => $id],
+            [
+                'historial_medico' => $request->historial_medico ?? null,
+            ]
+        );
 
+        return response()->json([
+            'mensaje' => 'Historial médico actualizado correctamente.',
+            'data' => $perfil
+        ]);
+    }
 }
