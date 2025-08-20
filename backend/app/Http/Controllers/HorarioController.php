@@ -182,33 +182,50 @@ class HorarioController extends Controller
 
         return response()->json($medicos, 200);
     }
-    public function buscarHorario(Request $request)
+   public function buscarHorario(Request $request)
     {
-        $busqueda = $request->input('busqueda');
+        $busqueda = trim((string) $request->input('busqueda', ''));
 
         $horarios = Horario::with(['medico.especialidad', 'medico.user'])
-            ->where('estado', 'S')
-            ->when($busqueda, function ($query, $busqueda) {
+            ->when($busqueda !== '', function ($query) use ($busqueda) {
                 $query->where(function ($q) use ($busqueda) {
-                    foreach ((new Horario)->getFillable() as $field) {
-                        $q->orWhere($field, 'like', "%{$busqueda}%");
-                    }
-                })
-                ->orWhereHas('medico', function ($q) use ($busqueda) {
-                    foreach ((new PerfilMedico)->getFillable() as $field) {
-                        $q->orWhere($field, 'like', "%{$busqueda}%");
-                    }
-                    $q->orWhereHas('user', function ($q2) use ($busqueda) {
-                        foreach ((new User())->getFillable() as $field) {
-                            $q2->orWhere($field, 'like', "%{$busqueda}%");
+                    $fillableHorario = (new Horario)->getFillable();
+                    foreach ($fillableHorario as $i => $field) {
+                        if ($i === 0) {
+                            $q->where($field, 'like', "%{$busqueda}%");
+                        } else {
+                            $q->orWhere($field, 'like', "%{$busqueda}%");
                         }
+                    }
+                    $q->orWhereHas('medico', function ($qm) use ($busqueda) {
+                        $fillablePerfil = (new PerfilMedico)->getFillable();
+                        foreach ($fillablePerfil as $i => $field) {
+                            if ($i === 0) {
+                                $qm->where($field, 'like', "%{$busqueda}%");
+                            } else {
+                                $qm->orWhere($field, 'like', "%{$busqueda}%");
+                            }
+                        }
+
+                        $qm->orWhereHas('user', function ($q2) use ($busqueda) {
+                            $fillableUser = (new User())->getFillable();
+                            foreach ($fillableUser as $i => $field) {
+                                if ($i === 0) {
+                                    $q2->where($field, 'like', "%{$busqueda}%");
+                                } else {
+                                    $q2->orWhere($field, 'like', "%{$busqueda}%");
+                                }
+                            }
+                        });
                     });
                 });
             })
+            ->where('estado', 'S')
             ->orderBy('id')
             ->get();
 
         return response()->json($horarios);
     }
+
 
 }
