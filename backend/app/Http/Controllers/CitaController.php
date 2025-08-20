@@ -243,7 +243,7 @@ class CitaController extends Controller
     public function modificarHistorialPaciente(Request $request, string $id)
     {
         $perfil = PerfilPaciente::updateOrCreate(
-            ['user_id' => $id],
+            ['id' => $id],
             [
                 'historial_medico' => $request->historial_medico ?? null,
             ]
