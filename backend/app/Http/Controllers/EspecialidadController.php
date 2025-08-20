@@ -96,4 +96,22 @@ class EspecialidadController extends Controller
             'message' => 'Especialidad eliminada exitosamente.'
         ], 201);
     }
+    public function buscarEspecialidad(Request $request)
+    {
+        $busqueda = $request->input('busqueda');
+
+        $especialidades = Especialidad::where('estado', 'S')
+            ->when($busqueda, function ($query, $busqueda) {
+                $query->where(function ($q) use ($busqueda) {
+                    foreach ((new Especialidad)->getFillable() as $field) {
+                        $q->orWhere($field, 'like', "%{$busqueda}%");
+                    }
+                });
+            })
+            ->orderBy('nombre')
+            ->get();
+
+        return response()->json($especialidades);
+}
+
 }

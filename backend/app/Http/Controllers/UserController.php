@@ -192,4 +192,30 @@ class UserController extends Controller
             'message' => 'Usuario eliminado exitosamente.'
         ], 201);
     }
+    public function buscarUser(Request $request)
+    {
+        $busqueda = $request->input('busqueda');
+
+        $users = User::where('estado', 'S')
+            ->when($busqueda, function ($query, $busqueda) {
+                $query->where(function ($q) use ($busqueda) {
+                    foreach ((new User)->getFillable() as $field) {
+                        $q->orWhere($field, 'like', "%{$busqueda}%");
+                    }
+                });
+            })
+            ->orderBy('id')
+            ->get()
+            ->map(function ($user) {
+                if ($user->rol === 'paciente') {
+                    $user->load('perfilPaciente');
+                } elseif ($user->rol === 'medico') {
+                    $user->load('perfilMedico.especialidad');
+                }
+                return $user;
+            });
+
+        return response()->json($users);
+    }
+
 }

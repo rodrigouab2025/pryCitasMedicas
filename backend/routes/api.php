@@ -22,6 +22,9 @@ Route::get('/reportes/boleta/{id}', [ReporteController::class, 'boletaReserva'])
 Route::post('/reportes/citas', [ReporteController::class, 'reporteCitas']); 
 Route::get('citas/medico/{id}', [CitaController::class, 'buscarCitaUsuario']);
 Route::put('/citas/{id}/historial', [CitaController::class, 'modificarHistorialPaciente']);
+Route::get('/usuarios/buscar', [UserController::class, 'buscarUser']);
+Route::get('/especialidades/buscar', [EspecialidadController::class, 'buscarEspecialidad']);
+Route::get('/horarios/buscar', [HorarioController::class, 'buscarHorario']);
 
 Route::apiResource('especialidades',EspecialidadController::class);
 Route::apiResource('ausencias',AusenciaController::class);

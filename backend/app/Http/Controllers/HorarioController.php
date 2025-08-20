@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Horario;
 use App\Models\PerfilMedico;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -181,4 +182,33 @@ class HorarioController extends Controller
 
         return response()->json($medicos, 200);
     }
+    public function buscarHorario(Request $request)
+    {
+        $busqueda = $request->input('busqueda');
+
+        $horarios = Horario::with(['medico.especialidad', 'medico.user'])
+            ->where('estado', 'S')
+            ->when($busqueda, function ($query, $busqueda) {
+                $query->where(function ($q) use ($busqueda) {
+                    foreach ((new Horario)->getFillable() as $field) {
+                        $q->orWhere($field, 'like', "%{$busqueda}%");
+                    }
+                })
+                ->orWhereHas('medico', function ($q) use ($busqueda) {
+                    foreach ((new PerfilMedico)->getFillable() as $field) {
+                        $q->orWhere($field, 'like', "%{$busqueda}%");
+                    }
+                    $q->orWhereHas('user', function ($q2) use ($busqueda) {
+                        foreach ((new User())->getFillable() as $field) {
+                            $q2->orWhere($field, 'like', "%{$busqueda}%");
+                        }
+                    });
+                });
+            })
+            ->orderBy('id')
+            ->get();
+
+        return response()->json($horarios);
+    }
+
 }
