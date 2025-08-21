@@ -26,6 +26,7 @@ Route::get('/usuarios/buscar', [UserController::class, 'buscarUser']);
 Route::get('/especialidades/buscar', [EspecialidadController::class, 'buscarEspecialidad']);
 Route::get('/horarios/buscar', [HorarioController::class, 'buscarHorario']);
 Route::get('/citas/usuario/{id}/actual', [CitaController::class, 'buscarCitaActualUsuario']);
+Route::get('/medicos', [HorarioController::class, 'listadoMedicos']);
 
 Route::apiResource('especialidades',EspecialidadController::class);
 Route::apiResource('ausencias',AusenciaController::class);

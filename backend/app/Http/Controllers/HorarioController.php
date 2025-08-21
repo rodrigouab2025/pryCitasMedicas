@@ -182,7 +182,7 @@ class HorarioController extends Controller
 
         return response()->json($medicos, 200);
     }
-   public function buscarHorario(Request $request)
+    public function buscarHorario(Request $request)
     {
         $busqueda = trim((string) $request->input('busqueda', ''));
 
@@ -226,6 +226,13 @@ class HorarioController extends Controller
 
         return response()->json($horarios);
     }
-
+    public function listadoMedicos(){
+        $medicos = PerfilMedico::with('user')
+            ->whereHas('user', function($q){
+                $q->orderBy('name', 'asc');
+            })
+            ->get();
+        return response()->json($medicos);
+    }
 
 }
