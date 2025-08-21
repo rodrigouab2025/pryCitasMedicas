@@ -16,8 +16,11 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'admin',
+            'email' => 'admin@ejemplo.com',
+            'password' => '12345678',
+            'telefono' => '76543210',
+            'rol' => 'administrador',
         ]);
         $this->call(EspecialidadSeeder::class);
         $this->call(PerfilPacienteSeeder::class);
@@ -26,4 +29,5 @@ class DatabaseSeeder extends Seeder
         $this->call(HorarioSeeder::class);
         $this->call(CitaSeeder::class);
     }
+
 }
