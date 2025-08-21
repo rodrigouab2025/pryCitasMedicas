@@ -31,7 +31,7 @@ class CitaController extends Controller
             'tiempo_final'  => 'required|date_format:H:i|after:tiempo_inicio',
             'razon'         => 'required|string|max:100',
             'horario_id'    => 'required|exists:horarios,id',
-            'paciente_id'   => 'required|exists:perfiles_pacientes,id',
+            'paciente_id'   => 'required',
         ];
 
         $mensaje = [
@@ -47,7 +47,6 @@ class CitaController extends Controller
             'horario_id.required'    => 'El horario es obligatorio.',
             'horario_id.exists'      => 'El horario seleccionado no existe.',
             'paciente_id.required'   => 'El paciente es obligatorio.',
-            'paciente_id.exists'     => 'El paciente seleccionado no existe.',
         ];
 
         $validator = Validator::make($request->all(), $reglas, $mensaje);
