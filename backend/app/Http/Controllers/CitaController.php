@@ -77,14 +77,14 @@ class CitaController extends Controller
                 'message' => 'El horario seleccionado no está disponible.',
             ], 409);
         }
-
+        $paciente = PerfilPaciente::where('user_id',$request->paciente_id)->first();
         $cita = Cita::create([
             'fecha'         => $request->fecha,
             'tiempo_inicio' => $request->tiempo_inicio,
             'tiempo_final'  => $request->tiempo_final,
             'razon'         => strtoupper($request->razon),
             'horario_id'    => $request->horario_id,
-            'paciente_id'   => $request->paciente_id,
+            'paciente_id'   => $paciente->id,
         ]);
 
         return response()->json([
